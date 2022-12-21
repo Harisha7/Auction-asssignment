@@ -161,7 +161,7 @@ def get_List_Item():
         cursor.close()
         conn.close()
 
-@app.route('/api/getitem', methods=['GET'])
+@app.route('/app/getitem', methods=['GET'])
 def get_Item():
     conn = mysql.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -178,8 +178,8 @@ def get_Item():
         conn.close()
 
 
-@app.route('/api/getitemwithpicture', methods=['GET'])
-def get_Item_With_Picture():
+@app.route('/app/getitemwithimages', methods=['GET'])
+def get_Item_With_Images():
     conn = mysql.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     try:
@@ -193,7 +193,7 @@ def get_Item_With_Picture():
         cursor.close()
         conn.close()
 
-@app.route('/api/getcurrentbid', methods=['GET'])
+@app.route('/app/getcurrentbid', methods=['GET'])
 def get_Current_Bid():
     conn = mysql.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -208,12 +208,12 @@ def get_Current_Bid():
         cursor.close()
         conn.close()
 
-@app.route('/api/getfivelatestbids', methods=['GET'])
+@app.route('/app/getfivelatestbids', methods=['GET'])
 def get_Five_LatestBids():
     conn = mysql.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     try:
-        query = "SELECT * FROM bids JOIN item ON auction_item = auction_item.id WHERE item.id = 1 ORDER BY price DESC LIMIT 5"
+        query = "SELECT * FROM bids JOIN auction_item ON auction_items = auction_item.id WHERE item.id = 1 ORDER BY price DESC LIMIT 5"
         cursor.execute(query)
         rows = cursor.fetchall()
         return jsonify({"getfivelatestbids":rows})
@@ -225,7 +225,7 @@ def get_Five_LatestBids():
 
 
 # this route should work even if you are not logged in
-@app.route("/api/unprotected-data", methods=["GET"])
+@app.route("/app/unprotected-data", methods=["GET"])
 def unprotected_data():
     return jsonify({"get-this-data": "Even if you are logged out"})
 
